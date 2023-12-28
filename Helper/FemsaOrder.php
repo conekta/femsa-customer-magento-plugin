@@ -46,10 +46,6 @@ class FemsaOrder extends Util
      * @var CustomerRepositoryInterface
      */
     protected CustomerRepositoryInterface $customerRepository;
-    /**
-     * @var ConfigProvider
-     */
-    protected ConfigProvider $femsaConfigProvider;
 
     /**
      * @var FemsaApiClient
@@ -66,7 +62,6 @@ class FemsaOrder extends Util
      * @param CustomerSession $customerSession
      * @param Session $_checkoutSession
      * @param CustomerRepositoryInterface $customerRepository
-     * @param ConfigProvider $femsaConfigProvider
      */
     public function __construct(
         Context                     $context,
@@ -75,8 +70,7 @@ class FemsaOrder extends Util
         FemsaApiClient              $femsaApiClient,
         CustomerSession             $customerSession,
         Session                     $_checkoutSession,
-        CustomerRepositoryInterface $customerRepository,
-        ConfigProvider $femsaConfigProvider
+        CustomerRepositoryInterface $customerRepository
     ) {
         parent::__construct($context);
         $this->femsaApiClient = $femsaApiClient;
@@ -85,7 +79,6 @@ class FemsaOrder extends Util
         $this->_femsaHelper = $femsaHelper;
         $this->_checkoutSession = $_checkoutSession;
         $this->customerRepository = $customerRepository;
-        $this->femsaConfigProvider = $femsaConfigProvider;
     }
 
 
