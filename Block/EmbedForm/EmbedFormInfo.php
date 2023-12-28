@@ -6,7 +6,6 @@ use Magento\Framework\View\Element\Template\Context;
 use Magento\Payment\Block\Info;
 use Magento\Payment\Model\Config;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Phrase;
 
 class EmbedFormInfo extends Info
 {
@@ -34,21 +33,6 @@ class EmbedFormInfo extends Info
         $this->_paymentConfig = $paymentConfig;
     }
 
-    /**
-     * Get CC type name
-     *
-     * @return Phrase|mixed
-     * @throws LocalizedException
-     */
-    public function getCcTypeName()
-    {
-        $types = $this->_paymentConfig->getCcTypes();
-        $ccType = $this->getInfo()->getCcType();
-        if (isset($types[$ccType])) {
-            return $types[$ccType];
-        }
-        return empty($ccType) ? __('N/A') : $ccType;
-    }
 
     /**
      * Get additional Data
@@ -99,32 +83,13 @@ class EmbedFormInfo extends Info
         $methodType = $this->getPaymentMethodType();
         $title = '';
 
-        switch ($methodType) {
-            case ConfigProvider::PAYMENT_METHOD_CREDIT_CARD:
-                $title = 'Pago con Tarjeta';
-                break;
-            
-            case ConfigProvider::PAYMENT_METHOD_CASH:
-                $title = 'Pago en Efectivo';
-                break;
-            case ConfigProvider::PAYMENT_METHOD_BANK_TRANSFER:
-                $title = 'Transferencia Bancaria';
-                break;
+        if ($methodType == ConfigProvider::PAYMENT_METHOD_CASH) {
+            $title = 'Pago en Efectivo';
         }
 
         return $title;
     }
 
-    /**
-     * Is credit card payment method
-     *
-     * @return bool
-     * @throws LocalizedException
-     */
-    public function isCreditCardPaymentMethod(): bool
-    {
-        return $this->getPaymentMethodType() === ConfigProvider::PAYMENT_METHOD_CREDIT_CARD;
-    }
 
     /**
      * Is cash payment method
@@ -137,31 +102,4 @@ class EmbedFormInfo extends Info
         return $this->getPaymentMethodType() === ConfigProvider::PAYMENT_METHOD_CASH;
     }
 
-    /**
-     * Is BankTransfer payment method
-     *
-     * @return bool
-     * @throws LocalizedException
-     */
-    public function isBankTransferPaymentMethod(): bool
-    {
-        return $this->getPaymentMethodType() === ConfigProvider::PAYMENT_METHOD_BANK_TRANSFER;
-    }
-
-    /**
-     * Show if card is debit o credit card
-     *
-     * @return string
-     * @throws LocalizedException
-     */
-    public function getCardType(): ?string
-    {
-        $additionalData = $this->getAdditionalData();
-    
-        if (isset($additionalData['card_type'])) {
-            return $additionalData['card_type'];
-        }
-        
-        return null;
-    }
 }

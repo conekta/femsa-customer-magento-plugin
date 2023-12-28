@@ -308,20 +308,15 @@ define(
             },
 
             getData: function () {
-                var number = this.creditCardNumber().replace(/\D/g, '');
                 if (this.iframOrderData() !== '') {
                     var params = this.iframOrderData();
                     var data = {
                         'method': this.getCode(),
                         'additional_data': {
                             'payment_method': params.charge.payment_method.type,
-                            'cc_type': params.charge.payment_method.brand,
-                            'cc_last_4': params.charge.payment_method.last4,
                             'reference': params.reference,
                             'order_id': params.charge.order_id,
                             'txn_id': params.charge.id,
-                            'card_type': params.charge.payment_method.card_type,
-                            'card_token': $("#" + this.getCode() + "_card_token").val(),
                             'iframe_payment': true
                         }
                     };
@@ -331,20 +326,12 @@ define(
                     'method': this.getCode(),
                     'additional_data': {
                         'payment_method': '',
-                        'cc_type': this.creditCardType(),
-                        'cc_last_4': number.substring(number.length - 4, number.length),
-                        'card_token': $("#" + this.getCode() + "_card_token").val(),
                         'reference': '',
                         'iframe_payment': false,
                         'order_id': '',
                         'txn_id': ''
                     }
                 };
-
-                if (this.activeMonthlyInstallments()) {
-                    data['additional_data']['monthly_installments'] = $("#" + this.getCode() + "_monthly_installments").children("option:selected").val();
-                }
-
                 return data;
             },
 

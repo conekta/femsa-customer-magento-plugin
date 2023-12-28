@@ -5,8 +5,6 @@
         <arguments>
             <argument name="configProviders" xsi:type="array">
                 <item name="femsa_global_provider" xsi:type="object">Femsa\Payments\Model\Ui\ConfigProvider</item>
-                <!-- Credit Card -->
-                <item name="femsa_cc_provider" xsi:type="object">Femsa\Payments\Model\Ui\CreditCard\ConfigProvider</item>
                 <!-- Embed Form -->
                 <item name="femsa_ef_provider" xsi:type="object">Femsa\Payments\Model\Ui\EmbedForm\ConfigProvider</item>
             </argument>

@@ -14,20 +14,7 @@ $offlineInfo = $block->getOfflineInfo();
                     </td>
                 </tr>
 
-                <?php if ($block->isCreditCardPaymentMethod()) {?>
-                <tr>
-                    <th><strong><?= /* @noEscape */ __('Card Brand:'); ?></strong></th>
-                    <td>
-                        <?= $block->escapeHtml($block->getCcTypeName()); ?>
-                    </td>
-                </tr>
-                <tr>
-                    <th><strong><?= /* @noEscape */ __('Card Type:'); ?></strong></th>
-                    <td>
-                        <?= $block->escapeHtml($block->getCardType()); ?>
-                    </td>
-                </tr>
-                <?php } elseif ($block->isCashPaymentMethod()) { ?>
+                <?php if ($block->isCashPaymentMethod()) { ?>
                 <tr>
                     <th><strong><?= /* @noEscape */ __('Reference Number:'); ?></strong></th>
                     <td>
@@ -41,26 +28,7 @@ $offlineInfo = $block->getOfflineInfo();
                     </td>
                 </tr>
 
-                <?php } elseif ($block->isBankTransferPaymentMethod()) { ?>
-                <tr>
-                    <th><strong><?= /* @noEscape */ __('CLABE:'); ?></strong></th>
-                    <td>
-                        <?= $block->escapeHtml($offlineInfo["clabe"]); ?>
-                    </td>
-                </tr>
-                <tr>
-                    <th><strong><?= /* @noEscape */ __('Bank Name:'); ?></strong></th>
-                    <td>
-                        <?= $block->escapeHtml($offlineInfo["bank_name"]); ?>
-                    </td>
-                </tr>
-                <tr>
-                    <th><strong><?= /* @noEscape */ __('Expires at:'); ?></strong></th>
-                    <td>
-                        <?= $block->escapeHtml(date("Y-m-d", (integer) $offlineInfo["expires_at"])) ?>
-                    </td>
-                </tr>
-                <?php } ?>                    
+                <?php } ?>
             </tbody>
         </table>
     </dd>
