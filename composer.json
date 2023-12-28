@@ -42,5 +42,6 @@
         "magento/framework": "^103.0",
         "magento/payment-services": "*",
         "phpstan/phpstan": "1.10.32"
-    }
+    },
+    "minimum-stability": "dev"
 }
