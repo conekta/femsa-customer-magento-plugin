@@ -185,7 +185,6 @@ class MissingOrders
                 'payment_method' => $this->getPaymentMethod($femsaOrder["charges"]["data"][0]["payment_method"]["object"]),
                 'femsa_customer_id' => $femsaCustomer["customer_id"]
             ];
-            $additionalInformation= array_merge($additionalInformation, $this->getAdditionalInformation($femsaOrder));
             $quoteCreated->getPayment()->setAdditionalInformation(   $additionalInformation);
             // Collect Totals & Save Quote
             $quoteCreated->collectTotals()->save();
@@ -212,21 +211,6 @@ class MissingOrders
     }
 
     private function getAdditionalInformation(array $femsaOrder) :array{
-        switch ($femsaOrder["charges"]["data"][0]["payment_method"]["object"]){
-            case "card_payment":
-                return [
-                    'cc_type' => $femsaOrder["charges"]["data"][0]["payment_method"]["brand"],
-                    'card_type' => $femsaOrder["charges"]["data"][0]["payment_method"]["type"],
-                    'cc_exp_month' => $femsaOrder["charges"]["data"][0]["payment_method"]["exp_month"],
-                    'cc_exp_year' => $femsaOrder["charges"]["data"][0]["payment_method"]["exp_year"],
-                    'cc_bin' => null,
-                    'cc_last_4' => $femsaOrder["charges"]["data"][0]["payment_method"]["last4"],
-                    'card_token' =>  null,
-                ];
-            case "bank_transfer_payment":
-            case "cash_payment":
-                return [];
-        }
         return [];
     }
     private function updateFemsaReference(string $chargeId, string $orderId){
